@@ -5,9 +5,8 @@ import Adapter from 'enzyme-adapter-react-16'
 
 import NavigationItems from './NavigationItems'
 import NavigationItem from './NavigationItem/NavigationItem'
-
+// for JEST shallow render method
 import ShallowRenderer from 'react-test-renderer/shallow'
-
 
 configure({adapter: new Adapter()})
 
