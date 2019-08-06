@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Aux from '../../hoc/Aux/Aux'
 import Burger from '../../components/Burger/Burger'
 import Modal from '../../components/UI/Modal/Modal'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
@@ -17,18 +16,26 @@ const INGREDIENT_PRICES = {
 }
 
 export class BurgerBuilder extends Component {
-  state = {
-    ingredients: null,
-    totalPrice: 4, 
-    purchaseable: false, 
-    purchasing: false, 
-    Loading: false, 
-    error: false
+  
+  constructor() {
+    super()
+    console.log('[BurgerBuilder.js] constructor')
+    this.state = {
+      ingredients: null,
+      totalPrice: 4, 
+      purchaseable: false, 
+      purchasing: false, 
+      Loading: false, 
+      error: false
   }
+  }
+  
+
 
   componentDidMount () {
+    console.log('[BurgerBuilder.js] didMount')
     axios.get('https://burger-builder-e640e.firebaseio.com/ingredients.json')
-      .then(response => {
+    .then(response => {
         this.setState({ingredients: response.data})
       })
       .catch(error => {
@@ -101,11 +108,16 @@ export class BurgerBuilder extends Component {
   }
 
   render() {
+    console.log('[BurgerBuilder.js] rendering ...')
+    // passes information as to whether LESS button should be disabled/enabled
     const disabledInfo = {
       ...this.state.ingredients
+      // distributed ingredients which effectively copies it in an immutable way
     }
-    for (let key in disabledInfo) {
+    for (let key in disabledInfo) { // loop through all the keys in disableInfor
       disabledInfo[key] = disabledInfo[key] <= 0
+      // update the disabledInfor[key] - salad, bacon, etc. - with the info
+      // of the check i.e. salad true, meat true (true = disabled)
     }
     
     let orderSummary = null
@@ -113,7 +125,7 @@ export class BurgerBuilder extends Component {
 
     if (this.state.ingredients) {
       burger = (
-        <Aux>
+        <>
           <Burger ingredients={this.state.ingredients}/>
           <BuildControls 
             ingredientAdded={this.addIngredientHandler} 
@@ -122,7 +134,7 @@ export class BurgerBuilder extends Component {
             purchaseable={this.state.purchaseable }
             price={this.state.totalPrice}
             ordered={this.purchaseHandler} />
-        </Aux>
+        </>
       )
       orderSummary = <OrderSummary 
         ingredients={this.state.ingredients}
@@ -134,12 +146,12 @@ export class BurgerBuilder extends Component {
       orderSummary = <Spinner />
     }
     return (
-      <Aux>
+      <>
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
         {burger}
-      </Aux>
+      </>
     )
   }
 }

@@ -5,6 +5,7 @@ import classes from './BurgerIngredient.module.css'
 
 class BurgerIngredient extends Component {
   render() {
+    console.log('[BurgerIngredient.js] rendering ...')
     let ingredient = null
 
     switch (this.props.type) {

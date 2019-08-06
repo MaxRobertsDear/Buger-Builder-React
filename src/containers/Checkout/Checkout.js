@@ -5,12 +5,19 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from './ContactData/ContactData'
 
 class Checkout extends Component {
+  constructor() {
+    super()
+    console.log('[Checkout.js] constructor')
+  }
+  
   state = {
     ingredients: null, 
     price: 0
   }
 
+
   componentWillMount () {
+    console.log('[Checkout.js] will mount')
     const query = new URLSearchParams(this.props.location.search)
     const ingredients = {}
     let price = 0
@@ -33,6 +40,7 @@ class Checkout extends Component {
   }
 
   render () {
+    console.log('[Checkout.js] rendering ...')
     return (
       <div>
         <CheckoutSummary 

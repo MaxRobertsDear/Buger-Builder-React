@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Aux from '../Aux/Aux'
 import classes from './Layout.module.css'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
@@ -21,8 +20,9 @@ class Layout extends Component {
   }
 
   render() {
+    console.log('[Layout.js] rendering ...')
     return (
-    <Aux>
+    <>
       <Toolbar
         drawerToggleClicked={this.sideDrawerToggleHandler} />
       <SideDrawer 
@@ -31,7 +31,7 @@ class Layout extends Component {
       <main className={classes.Content}>
         {this.props.children}
       </main>
-    </Aux>
+    </>
     )
   }
 }

@@ -10,7 +10,10 @@ const controls = [
   { label: 'Meat', type: 'meat' },
 ]
 
-const buildControls = (props) => (
+const buildControls = (props) => {
+  console.log('[BuildControls.js] rendering ...')
+  return (
+
   <div className={classes.BuildControls}> 
     <p>Current Price: $<strong>{props.price.toFixed(2)}</strong></p>
     {controls.map(ctrl => (
@@ -26,6 +29,7 @@ const buildControls = (props) => (
       disabled={!props.purchaseable}
       onClick={props.ordered}>ORDER NOW</button>
   </div>
-)
+  )
+}
 
 export default buildControls

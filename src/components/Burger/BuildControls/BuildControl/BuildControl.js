@@ -3,7 +3,10 @@ import React from 'react'
 import classes from './BuildControl.module.css';
 
 
-const buildControl = (props) => (
+const buildControl = (props) => {
+  console.log('[BuildControl.js] rendering ...')
+  return (
+
   <div className={classes.BuildControl}>
     <div className={classes.Label}>{props.label}</div>
     <button 
@@ -14,6 +17,7 @@ const buildControl = (props) => (
       className={classes.More} 
       onClick={props.added}>More</button>
   </div>
-)
+  )
+}
 
 export default buildControl

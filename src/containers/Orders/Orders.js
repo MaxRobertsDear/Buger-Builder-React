@@ -27,6 +27,7 @@ class Orders extends Component {
   }
 
   render () {
+    console.log('[Order.js] rendering ...')
     return (
       <div>
         {this.state.orders.map(order => (
