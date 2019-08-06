@@ -1,39 +1,33 @@
-import React, { Component } from 'react'
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState } from 'react'
 
 import classes from './Layout.module.css'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
-class Layout extends Component {
-  state = {
-    showSideDrawer: true
-  }
+const layout = (props) => {
+  const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false)
   
-  sideDrawerClosedHandler = () => {
-    this.setState({showSideDrawer: false})
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerIsVisible(false)
   }
 
-  sideDrawerToggleHandler = () => {
-    this.setState((prevState) => {
-      return {showSideDrawer: !prevState.showSideDrawer}
-    })
+  const sideDrawerToggleHandler = () => {
+    setSideDrawerIsVisible(!sideDrawerIsVisible)
   }
 
-  render() {
-    console.log('[Layout.js] rendering ...')
-    return (
-    <>
-      <Toolbar
-        drawerToggleClicked={this.sideDrawerToggleHandler} />
-      <SideDrawer 
-        open={this.state.showSideDrawer} 
-        closed={this.sideDrawerClosedHandler} />
-      <main className={classes.Content}>
-        {this.props.children}
-      </main>
-    </>
-    )
-  }
+  return (
+  <>
+    <Toolbar
+      drawerToggleClicked={sideDrawerToggleHandler} />
+    <SideDrawer 
+      open={sideDrawerIsVisible} 
+      closed={sideDrawerClosedHandler} />
+    <main className={classes.Content}>
+      {props.children}
+    </main>
+  </>
+  )
 }
 
-export default Layout
+export default layout
