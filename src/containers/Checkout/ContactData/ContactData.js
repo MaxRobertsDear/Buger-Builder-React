@@ -15,7 +15,11 @@ class ContactData extends Component {
           type: 'text', 
           placeholder: 'Your name'
         },
-        value: ''
+        value: '', 
+        validation: {
+          required: true
+        },
+        valid: false
       },
       street: {
         elementType: 'input', 
@@ -23,7 +27,11 @@ class ContactData extends Component {
           type: 'text', 
           placeholder: 'Your Street'
         },
-        value: ''
+        value: '', 
+        validation: {
+          required: true
+        },
+        valid: false
       },
       postcode: {
         elementType: 'input', 
@@ -31,7 +39,11 @@ class ContactData extends Component {
           type: 'text', 
           placeholder: 'Your Post Code'
         },
-        value: ''
+        value: '', 
+        validation: {
+          required: true
+        },
+        valid: false
       }, 
       country: {
         elementType: 'input', 
@@ -39,7 +51,11 @@ class ContactData extends Component {
           type: 'text', 
           placeholder: 'Your Country'
         },
-        value: ''
+        value: '', 
+        validation: {
+          required: true
+        },
+        valid: false
       },
       email: {
         elementType: 'input', 
@@ -47,7 +63,11 @@ class ContactData extends Component {
           type: 'email', 
           placeholder: 'Your E-Mail'
         },
-        value: ''
+        value: '', 
+        validation: {
+          required: true
+        },
+        valid: false
       },
       deliveryMethod: {
         elementType: 'select', 
@@ -61,6 +81,16 @@ class ContactData extends Component {
       }
     },
     loading: false
+  }
+
+  checkValidity(value, rules) {
+    let isValid = false
+
+    if (rules.required) {
+      isValid = value.trim() !== ''
+    }
+
+    return isValid
   }
 
   orderHandler = (event) => {
@@ -89,15 +119,13 @@ class ContactData extends Component {
     const updatedOrderForm = {
       ...this.state.orderForm
     }
-    console.log('[updatedOrderForm]', updatedOrderForm)
     const updatedFormElement = {
       ...updatedOrderForm[inputIdentifier]
     }
-    console.log('[updatedFormElement]', updatedFormElement)
     updatedFormElement.value = event.target.value
-    console.log('[updatedOrderForm[inputIdentifier]1]', updatedOrderForm[inputIdentifier])
+    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
+    console.log('[updatedFormElement]', updatedFormElement)
     updatedOrderForm[inputIdentifier] = updatedFormElement
-    console.log('[updatedOrderForm[inputIdentifier]2]', updatedOrderForm[inputIdentifier])
     this.setState({orderForm: updatedOrderForm})
   }
 
