@@ -1,13 +1,18 @@
 import React from 'react'
 
-import classes from './Input.css'
+import classes from './Input.module.css'
 
 const input = (props) => {
   let inputElement = null
+  let validationError = null
   const inputClasses = [classes.inputElement]
 
   if (props.invalid && props.shouldValitdate && props.touched) {
     inputClasses.push(classes.Invalid)
+  }
+
+  if (props.invalid && props.touched) {
+    validationError = <p className={classes.validationError}>Please enter a valid input</p>
   }
 
   switch (props.elementType) {
@@ -50,6 +55,7 @@ const input = (props) => {
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
   )
 }
